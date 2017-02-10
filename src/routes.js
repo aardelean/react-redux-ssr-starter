@@ -7,7 +7,7 @@ import {DashboardPage} from 'universal/home/pages';
 
 export function getRoutes() {
   return (
-    <Route path="/" component={AppContainer}>
+    <Route path="/microservice" component={AppContainer}>
       <IndexRoute component={DashboardPage} />
     </Route>
   );

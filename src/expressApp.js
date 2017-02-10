@@ -2,7 +2,6 @@
 
 import Express from 'express';
 import path from 'path';
-import serveFavicon from 'serve-favicon';
 import serveStatic from 'serve-static';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -35,7 +34,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
-app.use(serveFavicon(path.join(__dirname, 'static', 'favicon.png')));
 app.use(serveStatic(path.join(__dirname, 'static')));
 app.use(languageMiddleware({defaultLanguage: 'en-US', allTranslations: getAllTranslations()}));
 

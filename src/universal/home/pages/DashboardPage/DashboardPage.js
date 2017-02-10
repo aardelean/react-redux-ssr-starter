@@ -5,7 +5,7 @@ import {asyncConnect as connect} from 'redux-connect';
 import {changeMessageAction} from 'universal/home/actions';
 
 const asyncActions = [{
-  promise: ({store: {dispatch}}) => dispatch(changeMessageAction('Hello world!')),
+  promise: ({store: {dispatch}}) => dispatch(changeMessageAction('Hello from the other side!')),
 }];
 const propTypes = {
   message: PropTypes.string.isRequired,
@@ -23,7 +23,8 @@ const mapDispatchToProps = {
 export const DashboardPage = ({message = '', isChangingMessage = false, changeMessage}: any) => (
   <div>
     <span>{message}</span>
-    <button disabled={isChangingMessage} onClick={() => changeMessage('newMessage')}>change message</button>
+    <br/>
+    <button disabled={isChangingMessage} onClick={() => changeMessage('newMessage')}>React Some Button</button>
   </div>
 );
 DashboardPage.propTypes = propTypes;

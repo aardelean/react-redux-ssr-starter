@@ -1,12 +1,12 @@
 // @flow
 
 export function getAppMetadata(language: string = '', messages: Object = {}) {
-  const description = messages['App.meta.description'] || 'EverReal - Property management simplified.';
-  const ogDescription = messages['App.meta.og.description'] || 'EverReal - Property management simplified.';
+  const description = messages['App.meta.description'] || 'App simplified.';
+  const ogDescription = messages['App.meta.og.description'] || 'App simplified.';
   const keywords = 'property, management';
 
   return {
-    title: 'EverReal',
+    title: 'React Product',
     meta: [
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
       {name: 'description', content: description},
@@ -20,7 +20,6 @@ export function getAppMetadata(language: string = '', messages: Object = {}) {
       {property: 'og:locale', content: language},
       {property: 'og:title', content: 'EverReal'},
       {property: 'og:description', content: ogDescription},
-      {property: 'og:image', content: 'https://s3.eu-central-1.amazonaws.com/s3-production/assets/images/logo/everreal_logo_writing300x300.png'},
       {property: 'og:image:width', content: '300'},
       {property: 'og:image:height', content: '300'},
     ],

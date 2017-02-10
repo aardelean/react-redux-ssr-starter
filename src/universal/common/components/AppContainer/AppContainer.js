@@ -43,13 +43,9 @@ const AppContainer = (props: any, context: any) => {
           mode="indeterminate"
         />
 
-        <Header />
-
         <div className={css.MainChildrenContainer}>
           {children}
         </div>
-
-        <Footer />
       </div>
     </MuiThemeProvider>
   );
