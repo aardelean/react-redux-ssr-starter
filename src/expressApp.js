@@ -6,6 +6,8 @@ import serveStatic from 'serve-static';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import http from 'http';
+import jsdom from 'jsdom';
 
 import React from 'react';
 import ReactDOM from 'react-dom/server';
@@ -73,7 +75,6 @@ app.use((req, res, next) => {
         req.setLanguage({language: renderProps.params.language});
         const language = req.getLanguage();
         const languageMessages = req.getTranslation({language});
-
         const component = (
           <Provider store={store} key="provider">
             <IntlProvider locale={language} messages={languageMessages}>
@@ -89,11 +90,35 @@ app.use((req, res, next) => {
             language={language}
           />
         );
-        const componentHtml = ReactDOM.renderToString(html);
+        const options = {
+          host: 'localhost',
+          port: 8100,
+          path: '/api/emptyPage/v1/template?title=invoices',
+          headers: {...req.headers},
+        };
+        http.get(options, function(resp){
+          let body = '';
+          resp.on('data', function(chunk){
+            body += chunk;
+          });
+          resp.on('end', function(){
+            console.log(body);
+            let document = jsdom.jsdom(body);
+            document.getElementById('mainContent').innerHTML = ReactDOM.renderToString(
+              html,
+              document.getElementById('mainContent')
+            );
 
-        res.status(200);
-        res.set('Content-Language', language);
-        res.send(`<!doctype html>\n${componentHtml}`);
+            res.status(200);
+            res.set('Content-Language', language);
+            res.send(document.documentElement.innerHTML);
+          });
+        }).on("error", function(e){
+          console.log("Got error: " + e.message);
+          res.status(500);
+          res.set('Content-Language', language);
+          res.send(`Error: ${e}`);
+        });
       });
     } else {
       res.status(404).send('Not found');
